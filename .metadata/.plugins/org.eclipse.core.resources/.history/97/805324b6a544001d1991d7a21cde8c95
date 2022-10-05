@@ -1,0 +1,5 @@
+package com.ale.entrega.api.exceptionhandler;
+
+public class ApiExceptionhandler {
+
+}

@@ -1,0 +1,5 @@
+package com.ale.entrega.domain.repository;
+
+public interface ClienteRepository {
+
+}
