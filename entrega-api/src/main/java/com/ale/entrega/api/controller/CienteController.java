@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ale.entrega.domain.model.Cliente;
 import com.ale.entrega.domain.repository.ClienteRepository;
+import com.ale.entrega.domain.service.CatalogoClienteService;
 
 import lombok.AllArgsConstructor;
 
@@ -29,6 +30,9 @@ public class CienteController {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private CatalogoClienteService catalogoClienteService;
 	
 	
 	@GetMapping
@@ -56,7 +60,7 @@ public class CienteController {
 	 @PostMapping
 	 @ResponseStatus(HttpStatus.CREATED)
 	 public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-		 return clienteRepository.save(cliente);	 
+		   return catalogoClienteService.salvar(cliente);		 
 	 }
 	 
 	 
@@ -67,7 +71,7 @@ public class CienteController {
 			 return ResponseEntity.notFound().build();
 		 }
 		 cliente.setId(clienteId);
-		 cliente = clienteRepository.save(cliente);
+		 cliente = catalogoClienteService.salvar(cliente);
 		 
 		     return ResponseEntity.ok(cliente);
 	 }
@@ -78,7 +82,7 @@ public class CienteController {
 			 return ResponseEntity.notFound().build();
 		 
 	 }
-		clienteRepository.deleteById(clienteId);
+		catalogoClienteService.excluir(clienteId);
 		
 		return ResponseEntity.noContent().build();
 

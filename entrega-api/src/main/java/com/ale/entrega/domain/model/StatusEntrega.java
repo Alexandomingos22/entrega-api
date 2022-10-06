@@ -1,0 +1,8 @@
+package com.ale.entrega.domain.model;
+
+
+
+public enum StatusEntrega {
+     
+	PENDENTE, FINALIZADA, CANCELADA
+}

@@ -1,0 +1,8 @@
+package com.ale.entrega.domain.model;
+
+import javax.persistence.Entity;
+
+public enum StatusEntrega {
+     
+	PENDENTE, FINALIZADA, CANCELADA
+}
