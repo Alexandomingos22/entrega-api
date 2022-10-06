@@ -1,0 +1,42 @@
+package com.ale.entrega.domain.service;
+
+import java.time.LocalDateTime;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ale.entrega.domain.exception.NegocioException;
+import com.ale.entrega.domain.model.Cliente;
+import com.ale.entrega.domain.model.Entrega;
+import com.ale.entrega.domain.model.StatusEntrega;
+import com.ale.entrega.domain.repository.ClienteRepository;
+import com.ale.entrega.domain.repository.EntregaRepository;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+@Service
+public class SolicitacaoEntregaService {
+	
+	@Autowired
+	private EntregaRepository entregaRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Transactional
+	public Entrega solicitar(Entrega entrega) {
+	 Cliente cliente = clienteRepository.findById(entrega.getCliente().getId())
+			 .orElseThrow(() -> new NegocioException("Cliente não encontrado"));
+		
+	    entrega.setCliente(cliente);
+		entrega.setStatus(StatusEntrega.PENDENTE);
+		entrega.setDataPedido(LocalDateTime.now());
+		
+		return entregaRepository.save(entrega);
+		
+	}
+
+}
